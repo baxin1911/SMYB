@@ -1,0 +1,43 @@
+<% const form = {
+    id: 'loginForm',
+    inputs: [
+        { 
+            id: 'emailLoginInput', 
+            label: {
+                content: 'Correo electrónico:'
+            },
+            name: 'email', 
+            type: 'email'
+        },
+        { 
+            id:'passwordLoginInput', 
+            label: {
+                content: 'Contraseña:'
+            },
+            name: 'password', 
+            type: 'password' 
+        }
+    ],
+    submitButton: {
+        id: 'loginBtn',
+        content: 'Ingresar'
+    }
+} %>
+
+<form id="<%= form.id %>" class="row g-3" novalidate>
+    <%- include('../../shared/outlineInputList', { inputs: form.inputs }) %>
+
+    <div class="col-12">
+        <%- include('../../shared/submit', { button: form.submitButton }) %>
+    </div>
+</form>
+
+<script>
+    window.FLASH_MESSAGE = <%- JSON.stringify(flash) %>;
+</script>
+<script type="module" src="/js/pages/home/loginPage.js"></script>
+
+<%- contentFor('title') %>
+Inicio
+<%- contentFor('layoutType') %>
+clean

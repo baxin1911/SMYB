@@ -1,0 +1,52 @@
+<% const items = [
+    { 
+        content: 'Inicio', 
+        href: '/dashboard', 
+        isActive: currentRoute === '/'
+    },
+    { 
+        content: 'Insumos', 
+        href: '/inventory', 
+        isActive: currentRoute === '/categories/gaming' 
+    },
+    { 
+        content: 'Entradas', 
+        href: '/stock-in', 
+        isActive: currentRoute === '/categories/entertainment'
+    },
+    { 
+        content: 'Salidas/Consumo', 
+        href: '/stock-out', 
+        isActive: currentRoute === '/categories/sports' 
+    },
+    { 
+        content: 'Mermas', 
+        href: '/waste', 
+        isActive: currentRoute === '/categories/technology'
+    },
+    {
+        content: 'Reportes/Indicadores',
+        href: '/reports',
+        isActive: currentRoute === '/categories/technology'
+    },
+    {
+        content: 'Usuarios',
+        href: '/users',
+        isActive: currentRoute === '/categories/technology'
+    }
+].map(item => ({
+    ...item,
+    class: `nav-link ${ item.isActive ? 'active' : ''}`
+})); %>
+
+<ul class="<%= listClass %>">
+    <% items.forEach(item => { %>
+        <li class="nav-item py-1">
+            <a class="<%= item.class %>" href="<%= item.href %>" 
+                <%= item.isActive ? 'aria-current="page"' : '' %>
+            >
+                <%- item.content %>
+            </a>
+        </li>
+    <% }); %>
+</ul>
