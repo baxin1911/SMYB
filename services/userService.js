@@ -1,3 +1,4 @@
+import { createUserDtoForRegister } from "../dtos/userDTO.js";
 import { comparePassword, encryptPassword } from "../utils/encryptionUtils.js";
 
 let users = [
@@ -17,27 +18,12 @@ let roles = [
     { id: 1, name: 'author' },
 ]
 
-const contacts = [];
+export const saveUser = async (body) => {
 
-export const saveUser = async (user) => {
-
-    users.push(user);
+    const userDto = await createUserDtoForRegister(body);
+    users.push(userDto);
     
-    return user.id;
-}
-
-export const findUsersByIdUser = async (id) => {
-
-    const users = [
-        { id: 1, displayName: 'dsV45-sf', picture: 'https://i.pravatar.cc/45' },
-        { id: 2, displayName: 'niTso_ef', picture: 'https://i.pravatar.cc/45' },
-        { id: 3, displayName: '124_Dfrtrt', picture: 'https://i.pravatar.cc/45' },
-        { id: 4, displayName: '124-45_6asA', picture: 'https://i.pravatar.cc/45' },
-        { id: 5, displayName: 'CCV-FG34fr', picture: 'https://i.pravatar.cc/45' },
-        { id: 6, displayName: 'AD-ddfr44', picture: 'https://i.pravatar.cc/45' }
-    ];
-
-    return users;
+    return userDto.id;
 }
 
 export const getUserByEmail = async (email) => {
@@ -79,6 +65,6 @@ export const editUsernameByUserId = async (userId, username) => {
 export const verifyPassword = async (userId, password) => {
 
     const user = users.find(user => user.id === userId);
-    
+
     return await comparePassword(password, user.password);
 }

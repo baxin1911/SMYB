@@ -10,6 +10,7 @@ import stockInWebRoutes from './routes/web/stockInWebRoute.js';
 import stockOutWebRoutes from './routes/web/stockOutWebRoute.js';
 import userWebRoutes from './routes/web/userWebRoute.js';
 import wasteWebRoutes from './routes/web/wasteWebRoute.js';
+import settingsWebRoute from './routes/web/settingsWebRoute.js';
 
 import { checkTypeContentJson, checkTypeContentFile, checkContentTypePlainText } from './middleware/contentTypeMiddleware.js';
 import cookieParser from 'cookie-parser';
@@ -63,6 +64,7 @@ app.use('/stock-in', stockInWebRoutes);
 app.use('/stock-out', stockOutWebRoutes);
 app.use('/users', userWebRoutes);
 app.use('/waste', wasteWebRoutes);
+app.use('/settings', settingsWebRoute);
 
 // api routes
 app.use(apiRoute + authRoute, authApiRoutes);

@@ -1,48 +1,31 @@
-import { tokenStore, generateAccessToken, generateRefreshToken } from "../../services/jwtService.js";
 import { errorCodeMessages, successCodeMessages } from "../../messages/codeMessages.js";
-import { encryptToken } from "../../utils/encryptionUtils.js";
 import { clearAuthCookies, setAuthCookies } from "../../utils/cookiesUtils.js";
-import { getUserByEmail } from "../../services/userService.js";
-import { createUserDtoForRegister, createUserDtoForToken } from "../../dtos/userDTO.js";
 import { saveUser } from "../../services/userService.js";
 import { editPasswordByUserId } from "../../services/userService.js";
-import { verifyPassword } from "../../services/userService.js";
-import { getRoleByUserId } from "../../services/userService.js";
-import { getNewRefreshToken } from "../../services/authService.js";
+import { getNewRefreshToken, loginUser } from "../../services/authService.js";
 
 export const login = async (req, res) => {
 
-    const { email, password } = req.body || {};
+    try {
 
-    const user = await getUserByEmail(email);
+        const { email, password } = req.body || {};
+        const result = await loginUser({ email, password });
 
-    if (!user) return res.status(401).json({ code: errorCodeMessages.LOGIN_ERROR });
+        if (result.error) return res.status(400).json({ code: result.error });
 
-    const isValid = await verifyPassword(user.id, password);
+        setAuthCookies(res, result.newAccessToken, result.newRefreshToken);
 
-    if (!isValid) return res.status(401).json({ code: errorCodeMessages.LOGIN_ERROR });
-    
-    const role = await getRoleByUserId(user.id);
-    const tokenDto = createUserDtoForToken(user.id, role.name);
-    // if (result.error) return res.status(500).json({ message: result.error });
+        return res.status(200).json({ code: successCodeMessages.SUCCESS_LOGIN });
 
-    // 429, 500
-
-    const newRefreshToken = generateRefreshToken(tokenDto);
-    const newAccessToken = generateAccessToken(tokenDto);
-    const hashedToken = encryptToken(newRefreshToken);
-
-    // Save refreshToken in DB
-    tokenStore.hashedRefreshToken = hashedToken;
-    setAuthCookies(res, newAccessToken, newRefreshToken);
-
-    return res.status(200).json({ code: successCodeMessages.SUCCESS_LOGIN });
+    } catch (error) {
+console.log(error)
+        return res.status(500).json({ code: errorCodeMessages.SERVER_ERROR });
+    }
 }
 
 export const registerAccount = async (req, res) => {
 
-    const userDto = await createUserDtoForRegister(body);
-    const userId = await saveUser(userDto);
+    const userId = await saveUser(req.body);
 
     return res.status(201).json({ code: successCodeMessages.CREATED_ACCOUNT });
 }
@@ -64,7 +47,7 @@ export const resetPassword = async (req, res) => {
 export const refreshAuthToken = async (req, res) => {
 
     const { refreshToken } = req.cookies;
-    const  result = await getNewRefreshToken(refreshToken);
+    const  result = await getNewRefreshToken({ refreshToken });
 
     if (result.error) {
         

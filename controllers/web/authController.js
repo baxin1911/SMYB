@@ -13,7 +13,7 @@ export const login = async (req, res) => {
 export const refreshAuthToken = async (req, res) => {
 
     const { refreshToken } = req.cookies;
-    const result = await getNewRefreshToken(refreshToken);
+    const result = await getNewRefreshToken({ refreshToken });
 
     if (result.error) {
         
