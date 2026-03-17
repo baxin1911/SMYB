@@ -1,20 +1,18 @@
-import pool from "../config/db.js";
 import { createUserDtoForToken } from "../dtos/userDTO.js";
-import { errorCodeMessages } from "../messages/codeMessages.js";
+import { loginError, authError, detectedReuseError } from "../errors/authError.js";
 import { encryptToken } from "../utils/encryptionUtils.js";
 import { generateAccessToken, generateRefreshToken, tokenStore, verifyRefreshToken } from "./jwtService.js";
 import { getRoleByUserId, getUserIdByEmail, verifyPassword } from "./userService.js";
 
 export const loginUser = async ({ email, password }) => {
 
-    
     const userId = await getUserIdByEmail(email);
 
-    if (!userId) return { error: errorCodeMessages.LOGIN_ERROR };
+    if (!userId) throw new loginError();
 
     const isValid = await verifyPassword(userId, password);
 
-    if (!isValid) return { error: errorCodeMessages.LOGIN_ERROR };
+    if (!isValid) throw new loginError();
 
     const role = await getRoleByUserId(userId);
     const tokenDto = createUserDtoForToken(userId, role.name);
@@ -32,7 +30,7 @@ export const loginUser = async ({ email, password }) => {
 
 export const getNewRefreshToken = async ({ refreshToken }) => {
 
-    if (!refreshToken) return { error: errorCodeMessages.INVALID_AUTH };
+    if (!refreshToken) throw new authError();
 
     const hashedToken = encryptToken(refreshToken);
 
@@ -42,12 +40,12 @@ export const getNewRefreshToken = async ({ refreshToken }) => {
 
         tokenStore.hashedRefreshToken = null;
 
-        return { error: errorCodeMessages.DETECTED_REUSE };
+        throw new detectedReuseError();
     }
 
     const tokenInfo = verifyRefreshToken(refreshToken);
 
-    if (!tokenInfo) return { error: errorCodeMessages.INVALID_AUTH };
+    if (!tokenInfo) throw new authError();
 
     const { id, role } = tokenInfo;
     const tokenDto = createUserDtoForToken(id, role);
@@ -55,7 +53,7 @@ export const getNewRefreshToken = async ({ refreshToken }) => {
     const newRefreshToken = generateRefreshToken(tokenDto);
 
     // Save refreshToken in DB
-    tokenStore.hashedRefreshToken = hashedToken;
+    tokenStore.hashedRefreshToken = encryptToken(newRefreshToken);
 
     return {
         newAccessToken,
