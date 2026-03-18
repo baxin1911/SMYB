@@ -61,19 +61,19 @@ app.use((req, res, next) => {
 // web routes
 app.use(rootRoute, productWebRoutes);
 app.use(authRoute, authWebRoutes);
-app.use('/products', productWebRoutes);
-app.use('/supplies', supplyWebRoutes);
-app.use('/categories', categoryWebRoutes);
-app.use('/suppliers', supplierWebRoutes);
-app.use('/purchase-orders', purchaseOrderWebRoutes);
-app.use('/purchase-requisitions', purchaseRequisitionWebRoutes);
-app.use('/requisition-returns', requisitionReturnWebRoutes);
-app.use('/goods-receipts', goodsReceiptWebRoutes);
-app.use('/order-returns', orderReturnsWebRoutes);
-app.use('/goods-issues', goodsIssueWebRoutes);
-app.use('/inventory-adjustments', inventoryAdjustmentWebRoutes);
-app.use('/reports', reportWebRoutes);
-app.use('/users', userWebRoutes);
+app.use('/productos', productWebRoutes);
+app.use('/insumos', supplyWebRoutes);
+app.use('/categorias', categoryWebRoutes);
+app.use('/proveedores', supplierWebRoutes);
+app.use('/compras', purchaseOrderWebRoutes);
+app.use('/requisiciones', purchaseRequisitionWebRoutes);
+app.use('/devoluciones-requisicion', requisitionReturnWebRoutes);
+app.use('/recepciones-compra', goodsReceiptWebRoutes);
+app.use('/devoluciones-compra', orderReturnsWebRoutes);
+app.use('/salidas-almacen', goodsIssueWebRoutes);
+app.use('/ajustes-inventario', inventoryAdjustmentWebRoutes);
+app.use('/reportes', reportWebRoutes);
+app.use('/usuarios', userWebRoutes);
 
 // api routes
 app.use(apiRoute + authRoute, authApiRoutes);

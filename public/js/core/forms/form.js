@@ -6,7 +6,7 @@ import { on } from "../../utils/domUtils.js";
 export const useForm = async ({ 
     selector,
     modalId = '',
-    url = '/products',
+    url = '/productos',
     normalizeData = () => {},
     normalizeErrors = () => {},
     applyBeforeRequest = () => {},

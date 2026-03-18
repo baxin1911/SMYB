@@ -12,22 +12,23 @@ export const login = async (req, res) => {
 
 export const refreshAuthToken = async (req, res) => {
 
-    const { refreshToken } = req.cookies;
-    const result = await getNewRefreshToken({ refreshToken });
-
-    if (result.error) {
+    try {
+        const { refreshToken } = req.cookies;
+        const result = await getNewRefreshToken({ refreshToken });
         
-        req.error = result.error;
+        const returnTo = req.cookies.returnTo;
+
+        res.clearCookie('returnTo');
+        setAuthCookies(res, result.newAccessToken, result.newRefreshToken);
+
+        return res.redirect(returnTo || req.headers.referer);
+
+    } catch (error) {
+
+        req.error = error;
 
         return logout(req, res);
     }
-    
-    const returnTo = req.cookies.returnTo;
-
-    res.clearCookie('returnTo');
-    setAuthCookies(res, result.newAccessToken, result.newRefreshToken);
-
-    return res.redirect(returnTo || req.headers.referer);
 }
 
 export const logout = async (req, res) => {
