@@ -2,6 +2,9 @@ import 'dotenv/config.js';
 
 import authApiRoutes from './routes/api/authApiRoute.js';
 
+import loginWebRoutes from './routes/web/auth/loginWebRoute.js';
+import logoutWebRoutes from './routes/web/auth/logoutWebRoute.js';
+import refreshWebRoutes from './routes/web/auth/refreshWebRoute.js';
 import homeWebRoutes from './routes/web/homeWebRoute.js';
 import productWebRoutes from './routes/web/warehouse/productWebRoute.js';
 import supplyWebRoutes from './routes/web/warehouse/supplyWebRoute.js';
@@ -14,7 +17,6 @@ import goodsReceiptWebRoutes from './routes/web/warehouse/goodsReceiptWebRoute.j
 import orderReturnsWebRoutes from './routes/web/warehouse/orderReturnsWebRoute.js';
 import goodsIssueWebRoutes from './routes/web/warehouse/goodsIssueWebRoute.js';
 import inventoryAdjustmentWebRoutes from './routes/web/warehouse/inventoryAdjustmentWebRoute.js';
-import authWebRoutes from './routes/web/authWebRoute.js';
 import reportWebRoutes from './routes/web/warehouse/reportWebRoute.js';
 import userWebRoutes from './routes/web/admin/userWebRoute.js';
 
@@ -61,7 +63,9 @@ app.use((req, res, next) => {
 
 // web routes
 app.use(rootRoute, homeWebRoutes);
-app.use(authRoute, authWebRoutes);
+app.use('/inicio-sesion', loginWebRoutes);
+app.use('/revocar-sesion', refreshWebRoutes);
+app.use('/cerrar-sesion', logoutWebRoutes);
 app.use('/productos', productWebRoutes);
 app.use('/insumos', supplyWebRoutes);
 app.use('/categorias', categoryWebRoutes);

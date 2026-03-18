@@ -7,7 +7,7 @@ router.get(
     (req, res) => {
         if (req.user) return res.redirect('/productos');
 
-        return res.redirect('/auth/login');
+        return res.redirect('/inicio-sesion');
     }
 )
 

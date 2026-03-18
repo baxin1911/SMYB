@@ -1,4 +1,4 @@
-export const redirectWithFlash = (res, message, code, type, path = '/auth/login') => {
+export const redirectWithFlash = (res, message, code, type, path = '/inicio-sesion') => {
 
     let flash = {
         message,

@@ -32,7 +32,7 @@ export const verifyCookiesAuthTokenRequired = (req, res, next) => {
         
         res.cookie('returnTo', req.originalUrl, { httpOnly: true });
 
-        return res.redirect('/auth/refresh');
+        return res.redirect('/revocar-sesion');
     }
 
     req.userId = tokenInfo.id;
