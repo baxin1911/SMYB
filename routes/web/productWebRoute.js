@@ -5,16 +5,7 @@ import { authorizeUserWeb, verifyCookiesAuthTokenRequired } from '../../middlewa
 const router = express.Router();
 
 router.get(
-    '/',
-    (req, res) => {
-        if (req.user) return res.redirect('/products');
-
-        return res.redirect('/auth/login');
-    }
-)
-
-router.get(
-    '/products', 
+    '/', 
     verifyCookiesAuthTokenRequired,
     authorizeUserWeb({
         roles: ['Almacenista', 'Coordinador', 'Auxiliar', 'Administrador del sistema'],

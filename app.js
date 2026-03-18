@@ -2,6 +2,7 @@ import 'dotenv/config.js';
 
 import authApiRoutes from './routes/api/authApiRoute.js';
 
+import homeWebRoutes from './routes/web/homeWebRoute.js';
 import productWebRoutes from './routes/web/productWebRoute.js';
 import supplyWebRoutes from './routes/web/supplyWebRoute.js';
 import categoryWebRoutes from './routes/web/categoryWebRoute.js';
@@ -59,7 +60,7 @@ app.use((req, res, next) => {
 });
 
 // web routes
-app.use(rootRoute, productWebRoutes);
+app.use(rootRoute, homeWebRoutes);
 app.use(authRoute, authWebRoutes);
 app.use('/productos', productWebRoutes);
 app.use('/insumos', supplyWebRoutes);
