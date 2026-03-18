@@ -1,5 +1,5 @@
-import { useForm } from "../../core/forms/form.js";
-import { login } from "../../api/authApi.js";
+import { login } from "../../application/auth/login.js";
+import { useForm } from "../../application/form.js";
 
 useForm({
     selector: '#loginForm',
@@ -10,5 +10,11 @@ useForm({
 
         return errors;
     },
-    sendRequest: (data, options) => login(data, options),
+    sendRequest: async (data) => {
+
+        const response = await login(data);
+
+        localStorage.setItem('showSuccessToast', response.message);
+        window.location.replace('/productos');
+    }
 });
