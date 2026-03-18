@@ -1,1 +1,0 @@
-export const createSwiper = (classSwiper, options) => new Swiper(classSwiper, options);

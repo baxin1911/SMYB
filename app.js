@@ -1,6 +1,7 @@
 import 'dotenv/config.js';
 
 import authApiRoutes from './routes/api/authApiRoute.js';
+import categoryApiRoutes from './routes/api/warehouse/categoryApiRoute.js';
 
 import loginWebRoutes from './routes/web/auth/loginWebRoute.js';
 import logoutWebRoutes from './routes/web/auth/logoutWebRoute.js';
@@ -82,6 +83,7 @@ app.use('/usuarios', userWebRoutes);
 
 // api routes
 app.use(apiRoute + authRoute, authApiRoutes);
+app.use(apiRoute + '/categories', categoryApiRoutes);
 
 app.use((req, res, next) => {
     res.status(405).json({ message: 'Método HTTP no permitido.' });
