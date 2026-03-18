@@ -2,22 +2,27 @@ import 'dotenv/config.js';
 
 import authApiRoutes from './routes/api/authApiRoute.js';
 
-import homeWebRoutes from './routes/web/homeWebRoute.js';
+import productWebRoutes from './routes/web/productWebRoute.js';
+import supplyWebRoutes from './routes/web/supplyWebRoute.js';
+import categoryWebRoutes from './routes/web/categoryWebRoute.js';
+import supplierWebRoutes from './routes/web/supplierWebRoute.js';
+import purchaseOrderWebRoutes from './routes/web/purchaseOrderWebRoute.js';
+import purchaseRequisitionWebRoutes from './routes/web/purchaseRequisitionWebRoute.js';
+import requisitionReturnWebRoutes from './routes/web/requisitionReturnWebRoute.js';
+import goodsReceiptWebRoutes from './routes/web/goodsReceiptWebRoute.js';
+import orderReturnsWebRoutes from './routes/web/orderReturnsWebRoute.js';
+import goodsIssueWebRoutes from './routes/web/goodsIssueWebRoute.js';
+import inventoryAdjustmentWebRoutes from './routes/web/inventoryAdjustmentWebRoute.js';
 import authWebRoutes from './routes/web/authWebRoute.js';
-import inventoryWebRoutes from './routes/web/inventoryWebRoute.js';
 import reportWebRoutes from './routes/web/reportWebRoute.js';
-import stockInWebRoutes from './routes/web/stockInWebRoute.js';
-import stockOutWebRoutes from './routes/web/stockOutWebRoute.js';
 import userWebRoutes from './routes/web/userWebRoute.js';
-import wasteWebRoutes from './routes/web/wasteWebRoute.js';
-import settingsWebRoute from './routes/web/settingsWebRoute.js';
 
 import { checkTypeContentJson, checkTypeContentFile, checkContentTypePlainText } from './middleware/contentTypeMiddleware.js';
 import cookieParser from 'cookie-parser';
 
 import express from 'express';
 import expressEjsLayouts from 'express-ejs-layouts';
-import { publicDir, viewsDir, avatarsDir, coversDir } from './utils/pathsUtils.js';
+import { publicDir, viewsDir } from './utils/pathsUtils.js';
 import { errorCodeMessages } from './messages/codeMessages.js';
 
 const app = express();
@@ -36,8 +41,6 @@ app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
 
 app.use(rootRoute, express.static(publicDir));
-app.use('/avatars', express.static(avatarsDir));
-app.use('/covers', express.static(coversDir));
 
 app.use(apiRoute, express.json());
 app.use(textRoute, express.text({ type: 'text/plain' }));
@@ -56,15 +59,21 @@ app.use((req, res, next) => {
 });
 
 // web routes
-app.use(rootRoute, homeWebRoutes);
+app.use(rootRoute, productWebRoutes);
 app.use(authRoute, authWebRoutes);
-app.use('/inventory', inventoryWebRoutes);
+app.use('/products', productWebRoutes);
+app.use('/supplies', supplyWebRoutes);
+app.use('/categories', categoryWebRoutes);
+app.use('/suppliers', supplierWebRoutes);
+app.use('/purchase-orders', purchaseOrderWebRoutes);
+app.use('/purchase-requisitions', purchaseRequisitionWebRoutes);
+app.use('/requisition-returns', requisitionReturnWebRoutes);
+app.use('/goods-receipts', goodsReceiptWebRoutes);
+app.use('/order-returns', orderReturnsWebRoutes);
+app.use('/goods-issues', goodsIssueWebRoutes);
+app.use('/inventory-adjustments', inventoryAdjustmentWebRoutes);
 app.use('/reports', reportWebRoutes);
-app.use('/stock-in', stockInWebRoutes);
-app.use('/stock-out', stockOutWebRoutes);
 app.use('/users', userWebRoutes);
-app.use('/waste', wasteWebRoutes);
-app.use('/settings', settingsWebRoute);
 
 // api routes
 app.use(apiRoute + authRoute, authApiRoutes);

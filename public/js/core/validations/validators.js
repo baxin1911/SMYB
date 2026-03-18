@@ -1,15 +1,11 @@
-import { validateEmail, validatePassword, validateRepeatedPassword, validateUsername } from "./authValidations.js";
-import { validateAvatarPath, validateCoverPath, validateLastName, validateName } from "./profileValidations.js";
+import { validatePassword, validateRepeatedPassword, validateUsername } from "./authValidations.js";
+import { validateLastName, validateName } from "./profileValidations.js";
 import { validateQuery } from "./searchValidations.js";
 
 export const validators = {
-    name: validateName,
+    name: validateUsername,
     lastName: validateLastName,
-    email: validateEmail,
     password: validatePassword,
     repeatedPassword: (value, data) => validateRepeatedPassword(value, data.password),
-    username: validateUsername,
-    coverPath: validateCoverPath,
-    avatarPath: validateAvatarPath,
     q: validateQuery,
 }

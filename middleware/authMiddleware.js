@@ -1,6 +1,7 @@
 import { verifyAccessToken } from "../services/jwtService.js";
 import { errorCodeMessages } from "../messages/codeMessages.js";
 import { clearAuthCookies } from "../utils/cookiesUtils.js";
+import { getLoggedUser } from "../services/userService.js";
 
 const getAuthTokenInfo = ( req, res) => {
 
@@ -34,7 +35,7 @@ export const verifyCookiesAuthTokenRequired = (req, res, next) => {
         return res.redirect('/auth/refresh');
     }
 
-    req.user = tokenInfo;
+    req.userId = tokenInfo.id;
     
     next();
 }
@@ -45,6 +46,30 @@ export const verifyApiTokenRequired = (req, res, next) => {
 
     if (!tokenInfo) return res.status(401).json({ code: errorCodeMessages.INVALID_AUTH });
 
-    req.user = tokenInfo;
+    req.userId = tokenInfo.id;
     next();
 }
+
+const createAuthorizeMiddleware = (handler) => (permissions) => async (req, res, next) => {
+
+    const user = await getLoggedUser(req.userId);
+
+    if (
+        !user ||
+        !permissions.departments.includes(user.department) ||
+        !permissions.roles.includes(user.role)
+    ) {
+        return handler(req, res);
+    }
+
+    req.user = user;
+    next();
+};
+
+export const authorizeUserApi = createAuthorizeMiddleware((req, res) =>
+    res.status(401).json({ code: errorCodeMessages.INVALID_AUTH })
+);
+
+export const authorizeUserWeb = createAuthorizeMiddleware((req, res) =>
+    res.redirect('/error/404')
+);

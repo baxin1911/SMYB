@@ -5,7 +5,7 @@ useForm({
     selector: '#loginForm',
     normalizeErrors: ({ errors }) => {
 
-        errors.email = errors.email ? 'Correo incorrecto' : null;
+        errors.name = errors.name ? 'Usuario incorrecto' : null;
         errors.password = errors.password ? 'Contraseña incorrecta' : null;
 
         return errors;

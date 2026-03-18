@@ -1,44 +1,69 @@
 <% const items = [
     { 
-        content: 'Inicio', 
-        href: '/dashboard', 
-        isActive: currentRoute === '/'
+        content: 'Productos', 
+        href: '/products', 
+        isActive: currentRoute === '/products'
     },
     { 
         content: 'Insumos', 
-        href: '/inventory', 
-        isActive: currentRoute === '/categories/gaming' 
-    },
-    { 
-        content: 'Entradas', 
-        href: '/stock-in', 
-        isActive: currentRoute === '/categories/entertainment'
-    },
-    { 
-        content: 'Salidas/Consumo', 
-        href: '/stock-out', 
-        isActive: currentRoute === '/categories/sports' 
-    },
-    { 
-        content: 'Mermas', 
-        href: '/waste', 
-        isActive: currentRoute === '/categories/technology'
+        href: '/supplies', 
+        isActive: currentRoute === '/supplies' 
     },
     {
-        content: 'Reportes/Indicadores',
+        content: 'Categorías',
+        href: '/categories',
+        isActive: currentRoute === '/categories'
+    },
+    {
+        content: 'Proveedores',
+        href: '/suppliers',
+        isActive: currentRoute === '/suppliers'
+    },
+    { 
+        content: 'Compras', 
+        href: '/purchase-orders', 
+        isActive: currentRoute === '/purchase-orders' 
+    },
+    { 
+        content: 'Requisiciones', 
+        href: '/purchase-requisitions', 
+        isActive: currentRoute === '/purchase-requisitions' 
+    },
+    { 
+        content: 'Devoluciones de requisición', 
+        href: '/requisition-returns', 
+        isActive: currentRoute === '/requisition-returns'
+    },
+    {
+        content: 'Recepciones de compra',
+        href: '/goods-receipts',
+        isActive: currentRoute === '/goods-receipts'
+    },
+    {
+        content: 'Devoluciones de compra',
+        href: '/order-returns',
+        isActive: currentRoute === '/order-returns'
+    },
+    {
+        content: 'Salidas de almacén',
+        href: '/goods-issues',
+        isActive: currentRoute === '/goods-issues'
+    },
+    {
+        content: 'Ajustes de inventario',
+        href: '/inventory-adjustments',
+        isActive: currentRoute === '/inventory-adjustments'
+    },
+    {
+        content: 'Reportes',
         href: '/reports',
-        isActive: currentRoute === '/categories/technology'
+        isActive: currentRoute === '/reports'
     },
     {
         content: 'Usuarios',
         href: '/users',
-        isActive: currentRoute === '/categories/technology'
+        isActive: currentRoute === '/users'
     },
-    {
-        content: 'Configuración',
-        href: '/settings',
-        isActive: currentRoute === '/settings'
-    }
 ].map(item => ({
     ...item,
     class: `nav-link ${ item.isActive ? 'active' : ''}`

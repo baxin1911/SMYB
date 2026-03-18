@@ -12,7 +12,7 @@ datasource db {
   provider = "postgresql"
 }
 
-model Area {
+model Department {
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name String @unique
   users User[]
@@ -26,8 +26,8 @@ model Role {
 
 model User {
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  areaId String @db.Uuid
-  area Area @relation(fields: [areaId], references: [id])
+  departmentId String @db.Uuid
+  department Department @relation(fields: [departmentId], references: [id])
   roleId String @db.Uuid
   role Role @relation(fields: [roleId], references: [id])
   name String @unique
@@ -40,6 +40,6 @@ model Profile {
   name String
   lastName String
   status String
-  userId String @unique
+  userId String @unique @db.Uuid
   user User @relation(fields: [userId], references: [id])
 }

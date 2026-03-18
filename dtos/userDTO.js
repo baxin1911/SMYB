@@ -11,9 +11,8 @@ export const createUserDtoForRegister = async (body = {}) => ({
 
 });
 
-export const createUserDtoForToken = (id, role) => ({
+export const createUserDtoForToken = (id) => ({
 
-    id, 
-    role
+    id
 
 });

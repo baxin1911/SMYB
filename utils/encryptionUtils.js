@@ -26,5 +26,3 @@ export const decryptId = (encryptedId, key) => {
 export const encryptToken = (token) => crypto.createHash('sha256').update(token).digest('hex');
 
 export const encryptPassword = async (password) => await bcrypt.hash(password, 10);
-
-export const comparePassword = async (password, hashedPassword) => await bcrypt.compare(password, hashedPassword);

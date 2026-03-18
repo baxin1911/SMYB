@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyCookiesAuthTokenRequired } from '../../middleware/authMiddleware.js';
+import { authorizeUserWeb, verifyCookiesAuthTokenRequired } from '../../middleware/authMiddleware.js';
 import { getUser } from '../../controllers/web/userController.js';
 
 const router = express.Router();
@@ -7,6 +7,10 @@ const router = express.Router();
 router.get(
     '/',
     verifyCookiesAuthTokenRequired,
+    authorizeUserWeb({
+        roles: ['Administrador del sistema'],
+        departments: ['Sistemas']
+    }),
     getUser
 );
 

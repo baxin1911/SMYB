@@ -2,20 +2,15 @@ import { createUserDtoForToken } from "../dtos/userDTO.js";
 import { loginError, authError, detectedReuseError } from "../errors/authError.js";
 import { encryptToken } from "../utils/encryptionUtils.js";
 import { generateAccessToken, generateRefreshToken, tokenStore, verifyRefreshToken } from "./jwtService.js";
-import { getRoleByUserId, getUserIdByEmail, verifyPassword } from "./userService.js";
+import { getUserIdByLogin } from "./userService.js";
 
-export const loginUser = async ({ email, password }) => {
+export const loginUser = async ({ name, password }) => {
 
-    const userId = await getUserIdByEmail(email);
+    const userId = await getUserIdByLogin(name, password);
 
     if (!userId) throw new loginError();
 
-    const isValid = await verifyPassword(userId, password);
-
-    if (!isValid) throw new loginError();
-
-    const role = await getRoleByUserId(userId);
-    const tokenDto = createUserDtoForToken(userId, role.name);
+    const tokenDto = createUserDtoForToken(userId);
     const newRefreshToken = generateRefreshToken(tokenDto);
     const newAccessToken = generateAccessToken(tokenDto);
     const hashedToken = encryptToken(newRefreshToken);
@@ -47,8 +42,8 @@ export const getNewRefreshToken = async ({ refreshToken }) => {
 
     if (!tokenInfo) throw new authError();
 
-    const { id, role } = tokenInfo;
-    const tokenDto = createUserDtoForToken(id, role);
+    const { id } = tokenInfo;
+    const tokenDto = createUserDtoForToken(id);
     const newAccessToken = generateAccessToken(tokenDto);
     const newRefreshToken = generateRefreshToken(tokenDto);
 

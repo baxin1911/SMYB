@@ -1,5 +1,5 @@
 import express from 'express';
-import { verifyCookiesAuthTokenRequired } from '../../middleware/authMiddleware.js';
+import { authorizeUserWeb, verifyCookiesAuthTokenRequired } from '../../middleware/authMiddleware.js';
 import { getReport } from '../../controllers/web/reportController.js';
 
 const router = express.Router();
@@ -7,6 +7,10 @@ const router = express.Router();
 router.get(
     '/',
     verifyCookiesAuthTokenRequired,
+    authorizeUserWeb({
+        roles: ['Almacenista', 'Coordinador', 'Auxiliar', 'Administrador del sistema'],
+        departments: ['Almacén', 'Sistemas']
+    }),
     getReport
 );
 

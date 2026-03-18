@@ -1,32 +1,5 @@
 import { includeSpace, includeUppercase, isEmptyOrNull, isLengthInRangeMax, isLengthInRangeMin, isString } from "./validations.js";
 
-export const validateEmail = (email) => {
-
-    const allowedEmail = /\S+@\S+\.\S+/;
-    const fieldName = 'El correo ';
-    let result = isEmptyOrNull(email, fieldName);
-
-    if (result) return result;
-
-    result = isString(email, fieldName);
-
-    if (result) return result;
-
-    result = includeSpace(email, fieldName);
-
-    if (result) return result;
-
-    if (!allowedEmail.test(email)) return `${ fieldName }no cumple con el formato requerido`;
-
-    result = isLengthInRangeMin(email, 10, fieldName);
-
-    if (result) return result;
-
-    result = isLengthInRangeMax(email, 100, fieldName);
-
-    return result;
-}
-
 export const validatePassword = (password) => {
 
     const allowedNumber = /\d/;
@@ -48,7 +21,7 @@ export const validatePassword = (password) => {
 
     if (!allowedPassword.test(password)) return  `${ fieldName }debe tener al menos un símbolo especial.`;
 
-    result = isLengthInRangeMin(password, 8, fieldName);
+    result = isLengthInRangeMin(password, 6, fieldName);
 
     if (result) return result;
 

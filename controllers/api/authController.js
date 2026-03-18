@@ -6,8 +6,7 @@ import { createUserDtoForRegister } from "../../dtos/userDTO.js";
 
 export const login = async (req, res) => {
 
-    const { email, password } = req.body || {};
-    const tokens = await loginUser({ email, password });
+    const tokens = await loginUser(req.body);
 
     setAuthCookies(res, tokens.newAccessToken, tokens.newRefreshToken);
 
