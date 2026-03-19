@@ -4,7 +4,6 @@ export const createCategoryDatatable = (tableId) => {
     
     const table = createDataTable(tableId, {
         ajax: '/api/warehouse/categories',
-        dom: 'Bfrtip',
         columns: [
             { data: 'name' },
             {
@@ -23,8 +22,11 @@ export const createCategoryDatatable = (tableId) => {
                     const form = document.getElementById('categoryForm');
                     form.dataset.mode = 'create';
                     form.dataset.id = '';
+                    form.reset();
+                    document.getElementById('categoryModalTitle').textContent = 'Registrar categoría';
+                    document.getElementById('saveCategoryBtn').textContent = 'Guardar';
                     const modalElement = document.getElementById('modal');
-                    const modal = new mdb.Modal(modalElement);
+                    const modal = mdb.Modal.getOrCreateInstance(modalElement);
 
                     modal.show();
                 }
@@ -45,7 +47,7 @@ export const createCategoryDatatable = (tableId) => {
         document.getElementById('categoryModalTitle').textContent = 'Editar categoría';
         document.getElementById('saveCategoryBtn').textContent = 'Actualizar';
 
-        const modal = new mdb.Modal(document.getElementById('modal'));
+        const modal = mdb.Modal.getOrCreateInstance(modalElement);
         modal.show();
     });
 }
