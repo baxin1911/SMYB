@@ -1,4 +1,17 @@
-<% button = {
+<% const header = {
+    button: {
+        id: modal.header.button.id,
+        dismissTarget: 'modal'
+    },
+    class: 'modal-header',
+    title: {
+        id: modal.header.title.id,
+        content: modal.header.title.content,
+        class: 'modal-title',
+    }
+}; 
+
+button = {
     id: 'backBtn',
     class: 'btn btn-link',
     attrs: {
@@ -9,21 +22,21 @@
     content: 'Regresar'
 }; %>
 
-<div class="modal fade" id="modal" tabindex="-1">
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="<%= header.title.id %>">
     <div class="modal-dialog">
         <div class="modal-content">
         
-        <%- include('./header', { header: modal.header }) %>
+        <%- include('./header', { header }) %>
 
         <div class="modal-body dark">
-            <form id="<%= modal.form.id %>">
+            <form id="<%= modal.form.id %>" class="row g-3" novalidate>
                 <%- include('./outlineInputList', { inputs: modal.form.inputs }) %>
-            </form>
-        </div>
 
-        <div class="modal-footer">
-            <%- include('./button', { button }) %>
-            <%- include('./submit', { button: modal.form.submitButton }) %>
+                <div class="col-12">
+                    <%- include('./button', { button }) %>
+                    <%- include('./submit', { button: modal.form.submitButton }) %>
+                </div>
+            </form>
         </div>
 
         </div>
