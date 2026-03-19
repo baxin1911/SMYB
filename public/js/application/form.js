@@ -1,5 +1,5 @@
 import { getErrorMessage } from "../constants/apiMessages.js";
-import { mapFormErrors, mapServerErrors } from "../core/forms/mappers/formMapper.js";
+import { mapServerErrors } from "../core/forms/mappers/formMapper.js";
 import { notifications } from "../plugins/swal/swalComponent.js";
 import { toggleErrorMessages } from "../ui/forms/formMessagesUI.js";
 import { on } from "../utils/domUtils.js";
@@ -8,6 +8,7 @@ export const useForm = async ({
     selector,
     normalizeData = () => {},
     normalizeErrors = () => {},
+    getErrors= () => {},
     sendRequest,
     normalizeServerErrors = () => {},
 }) => {
@@ -20,7 +21,7 @@ export const useForm = async ({
 
         normalizeData(form, formData);
 
-        const errors = mapFormErrors(formData);
+        const errors = getErrors(formData);
 
         normalizeErrors({ form, errors });
         toggleErrorMessages(form, errors);
@@ -31,7 +32,7 @@ export const useForm = async ({
 
         try {
 
-            await sendRequest(formData);
+            await sendRequest({ formData, form });
 
         } catch (err) {
 
@@ -45,8 +46,7 @@ export const useForm = async ({
 
                 switch (status) {
                     case 400:
-                        const errors = mapServerErrors(serverErrors);
-
+                        const errors = mapServerErrors(response.data.errors);
                         normalizeServerErrors(form, errors);
                         toggleErrorMessages(form, errors);
                         break;

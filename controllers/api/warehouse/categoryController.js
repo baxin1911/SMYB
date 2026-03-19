@@ -1,4 +1,6 @@
-import { findAllCategories } from "../../../services/categoryService.js";
+import { createCategoryDtoForRegister } from "../../../dtos/categoryDTO.js";
+import { successCodeMessages } from "../../../messages/codeMessages.js";
+import { findAllCategories, createCategory, updateCategory } from "../../../services/categoryService.js";
 
 export const getAllCategories = async (req, res) => {
 
@@ -19,4 +21,28 @@ export const getAllCategories = async (req, res) => {
     });
 
     res.status(200).json(result);
+}
+
+export const registerCategory = async (req, res) => {
+
+    const categoryDto = createCategoryDtoForRegister(req.body);
+
+    const category = await createCategory(categoryDto);
+
+    return res.status(200).json({
+        category,
+        code: successCodeMessages.CREATED_CATEGORY
+    });
+}
+
+export const editCategory = async (req, res) => {
+
+    const categoryDto = createCategoryDtoForRegister(req.body);
+
+    const category = await updateCategory(categoryDto, req.params.id);
+
+    return res.status(200).json({
+        category,
+        code: successCodeMessages.UPDATED_CATEGORY
+    });
 }

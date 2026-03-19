@@ -2,7 +2,7 @@ import { isEmptyOrNull, isLengthInRangeMax, isLengthInRangeMin, isString } from 
 
 export const validateText = (name, fieldName) => {
 
-    const allowedName = /^[\p{L}]+(?:[ '\-][\p{L}]+)*$/u;
+    const allowedName = /^[\p{L}0-9]+(?:[ '\-.,:;()¿?¡!][\p{L}0-9]+)*[.,:;()¿?¡!]*$/u;
     let result = isEmptyOrNull(name, fieldName);
 
     if (result) return result;
@@ -11,7 +11,7 @@ export const validateText = (name, fieldName) => {
 
     if (result) return result;
 
-    if (!allowedName.test(name)) return `${ fieldName } debe tener solo letras y caracteres válidos.`;
+    if (!allowedName.test(name)) return `${ fieldName } debe tener solo letras, números, signos de puntuación o espacios.`;
 
     result = isLengthInRangeMin(name, 3, fieldName);
 

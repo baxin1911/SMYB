@@ -205,6 +205,10 @@ a:hover {
 
 /* text styles */
 
+.form-control, .form-control:focus {
+    color: #000000
+}
+
 label {
   font-weight: 800;
 }

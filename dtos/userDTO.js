@@ -2,11 +2,9 @@ import { encryptPassword } from "../utils/encryptionUtils.js";
 
 export const createUserDtoForRegister = async (body = {}) => ({
 
-    id: crypto.randomUUID(),
     username: body.username,
-    email: body.email,
-    verifiedEmail: false,
-    roleId: 2,
+    roleId: body.roleId,
+    departmentId: body.departmentId,
     password: await encryptPassword(body.password)
 
 });

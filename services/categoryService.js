@@ -1,3 +1,4 @@
+import { CategoryNotFound } from "../errors/warehouse/categoryError.js";
 import { prisma } from "../lib/prisma.js";
 
 export const findAllCategories = async ({
@@ -35,3 +36,37 @@ export const findAllCategories = async ({
         recordsFiltered: filtered
     };
 };
+
+export const createCategory = async (categoryDto) => {
+
+    const category = await prisma.category.create({
+        data: {
+            name: categoryDto.name
+        }
+    });
+
+    return category;
+}
+
+export const updateCategory = async (categoryDto, id) => {
+
+    try {
+
+        const category = await prisma.category.update({
+            data: {
+                name: categoryDto.name
+            },
+            where: {
+                id: id
+            }
+        });
+
+        return category;
+
+    } catch (err) {
+
+        if (err.code === 'P2025') throw CategoryNotFound();
+
+        throw err;
+    }
+}

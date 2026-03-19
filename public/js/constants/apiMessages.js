@@ -1,10 +1,4 @@
 const errorMessages = {
-    EMPTY_EMAIL: 'El correo electrónico es requerido.',
-    EMAIL_NOT_STRING: 'El correo electrónico debe ser una cadena de texto.',
-    INVALID_EMAIL_FORMAT: 'El formato del correo electrónico es inválido.',
-    EMAIL_TOO_SHORT: 'El correo electrónico debe tener al menos 10 caracteres.',
-    EMAIL_TOO_LONG: 'El correo electrónico no debe tener más de 100 caracteres.',
-    EMPTY_PASSWORD: 'La contraseña es requerida.',
     PASSWORD_NOT_STRING: 'La contraseña debe ser una cadena de texto.',
     PASSWORD_NEEDS_NUMBER: 'La contraseña debe contener al menos un número.',
     PASSWORD_NEEDS_UPPERCASE: 'La contraseña debe contener al menos una letra mayúscula.',
@@ -22,7 +16,7 @@ const errorMessages = {
     NAME_NOT_STRING: 'El nombre debe ser una cadena de texto.',
     NAME_TOO_SHORT: 'El nombre debe tener al menos 2 caracteres.',
     NAME_TOO_LONG: 'El nombre no debe tener más de 50 caracteres.',
-    INVALID_NAME_CHARS: 'El nombre debe contener solo letras y espacios.',
+    INVALID_NAME_CHARS: 'El nombre debe contener solo letras, números, signos de puntuación o espacios.',
     EMPTY_LAST_NAME: 'El apellido es requerido.',
     LAST_NAME_NOT_STRING: 'El apellido debe ser una cadena de texto.',
     LAST_NAME_TOO_SHORT: 'El apellido debe tener al menos 2 caracteres.',
@@ -34,27 +28,10 @@ const errorMessages = {
     TEXT_NOT_STRING: 'El texto de búsqueda debe ser una cadena de texto.',
     TEXT_TOO_SHORT: 'El texto de búsqueda debe tener al menos un caracter.',
     TEXT_TOO_LONG: 'El texto de búsqueda debe tener menos de 500 caracteres.',
-    GOOGLE_LOGIN_ERROR: 'Error de autenticación con Google.',
     LOGIN_ERROR: 'Usuario o contraseña incorrectos.',
     VALIDATION_ERROR: 'Errores de validación',
     INVALID_AUTH: 'Sesión inválida. Inicia sesión nuevamente.',
     INVALID_LINK: 'Enlace inválido. Solicita uno nuevo.',
-    LIMIT_FILE_SIZE: 'El archivo es muy grande.',
-    LIMIT_FILE_COUNT: 'Debe enviarse un archivo.',
-    LIMIT_UNEXPECTED_FILE: 'Campo incorrecto',
-    LIMIT_FIELD_KEY: 'El nombre del campo es muy largo.',
-    LIMIT_FIELD_VALUE: 'El valor es muy largo.',
-    INVALID_CONTENT_TYPE: 'El Content-Type debe contener ',
-    IMAGE_PATH_NOT_STRING: 'La ruta de la imagen no es una cadena de texto.',
-    INVALID_IMAGE_PATH: 'La imagen debe ser temporal.',
-    INVALID_FILE_TYPE: 'El tipo de archivo es inválido.',
-    INVALID_FILE: 'Debe ser un archivo.',
-    INVALID_FILE_EXTENSION: 'La extensión del archivo es inválida.',
-    INVALID_FILE_CONTENT: 'El archivo esta corrompido.',
-    FILE_NOT_FOUND: 'No se encontró el archivo subido.',
-    TEMP_FILE_NOT_FOUND: 'No se encontró el archivo temporal.',
-    EMPTY_FILE: 'Necesita enviar un archivo.',
-    UNAUTH_USER_EDIT_FILE: 'No estas autorizado para editar este archivo.',
     SERVER_ERROR: 'Error del servidor.',
     DETECTED_REUSE: 'Reuso de sesión detectado.',
     EMPTY_SUBJECT: 'El asunto es requerido.',
@@ -64,7 +41,7 @@ const errorMessages = {
     MESSAGE_NOT_STRING: 'El mensaje debe ser una cadena de texto.',
     MESSAGE_TOO_SHORT: 'El mensaje es muy corto.',
     MESSAGE_TOO_LONG: 'El mensaje debe tener un máximo de 500 caracteres.',
-    INVALID_PAGINATION: 'No existe esa página.'
+    CATEGORY_NOT_FOUND: 'Categoría no encontrada.'
 };
 
 const successMessages = {
@@ -73,6 +50,8 @@ const successMessages = {
     UPDATED_ACCOUNT_PASSWORD: '¡Contraseña actualizada con éxito!',
     SUCCESS_LOGIN: '¡Inicio de sesión exitoso!',
     SUCCESS_LOGOUT: 'Sesión cerrada exitosamente.',
+    CREATED_CATEGORY: '¡Categoría creada exitosamente!',
+    UPDATED_CATEGORY: '¡Categoría actuallizada exitosamente!'
 };
 
 export const getErrorMessage = (code) => errorMessages[code] ?? null;

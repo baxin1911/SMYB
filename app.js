@@ -35,6 +35,7 @@ const apiRoute = '/api';
 const textRoute = '/text';
 const uploadRoute = '/upload';
 const authRoute = '/auth';
+const warehouse = '/warehouse';
 
 app.set('views', viewsDir);
 app.set('view engine', 'ejs');
@@ -83,7 +84,7 @@ app.use('/usuarios', userWebRoutes);
 
 // api routes
 app.use(apiRoute + authRoute, authApiRoutes);
-app.use(apiRoute + '/categories', categoryApiRoutes);
+app.use(apiRoute + warehouse + '/categories', categoryApiRoutes);
 
 app.use((req, res, next) => {
     res.status(405).json({ message: 'Método HTTP no permitido.' });

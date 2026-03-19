@@ -6,7 +6,7 @@ const UppercaseRegex = /[A-Z]/;
 const whitespaceRegex = /^\S+$/;
 const usernameRegex = /^[a-zA-Z0-9_]+$/;
 const passwordRegex = /^[A-Za-z0-9!@#\$%\^&\*]+$/;
-const nameRegex = /^[\p{L}]+(?:[ '\-][\p{L}]+)*$/u;
+const nameRegex = /^[\p{L}0-9]+(?:[ '\-.,:;()¿?¡!][\p{L}0-9]+)*[.,:;()¿?¡!]*$/u;
 
 export const validatePassword = 
     body('password')
